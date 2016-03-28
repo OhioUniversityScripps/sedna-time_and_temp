@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+  <head>
+    <title>Clock</title>
+    
+    <link rel="stylesheet" href="styles.css" type="text/css" media="screen" title="no title" charset="utf-8">
+    
+    <script src="default_settings.dat"        type="text/javascript" charset="utf-8"></script>
+    <script src="custom_settings.dat"         type="text/javascript" charset="utf-8"></script>
+    <script src="moment.min.js"               type="text/javascript"></script>
+    <script src="jquery.min.js"               type="text/javascript"></script>
+    <script src="jquery.simpleweather.min.js" type="text/javascript"></script>
+    
+    <script type="text/javascript">
+      fn = {
+        setDate: function() {
+          var now = moment();
+          $("#time").html(moment().format('h:mm'));
+          setTimeout(fn.setDate, 10000);
+        },
+      }
+
+      $(document).ready(function() {
+        fn.setDate();
+
+        function loadSettings() {
+          location = sedna_config.location;
+        } 
+        
+        {
+          $.simpleWeather({
+            location: sedna_config.location,
+            unit: 'f',
+            success: function(weather) {
+              html = '<i class="icon-' + weather.code + '"> </i>' + weather.temp + '&deg;';
+              $("#weather").html(html);
+            },
+            error: function(error) {
+              $("#weather").html("<p></p>");
+            }
+          });
+        }
+      });    
+      
+    </script>
+  </head>
+  
+  <body>
+    <center>
+      <span id="time"></span>
+      <div id="weather"></div>
+    </center>
+  </body>
+</html>

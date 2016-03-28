@@ -1,0 +1,4 @@
+sedna_config = {
+	"units"    : "f",
+	"location" : "Athens, OH",
+}
